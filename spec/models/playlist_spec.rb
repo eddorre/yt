@@ -4,6 +4,12 @@ require 'yt/models/playlist'
 describe Yt::Playlist do
   subject(:playlist) { Yt::Playlist.new attrs }
 
+  describe '#etag' do
+    context 'given the API response includes an etag' do
+      let(:attrs) { { etag: '12345' } }
+      it { expect(playlist.etag).to eq '12345' }
+    end
+  end
 
   describe '#title' do
     context 'given a snippet with a title' do

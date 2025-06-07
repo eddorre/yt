@@ -6,7 +6,7 @@ module Yt
   module Models
     class Resource < Base
       # @private
-      attr_reader :auth
+      attr_reader :auth, :etag
 
     ### ID ###
 
@@ -56,6 +56,7 @@ module Yt
           @id = options[:id]
         end
         @auth = options[:auth]
+        @etag = options[:etag]
         @snippet = Snippet.new(data: options[:snippet]) if options[:snippet]
         @status = Status.new(data: options[:status]) if options[:status]
       end

@@ -4,6 +4,13 @@ require 'yt/models/video'
 describe Yt::Video do
   subject(:video) { Yt::Video.new attrs }
 
+  describe '#etag' do
+    context 'given the API response includes an etag' do
+      let(:attrs) { { etag: '12345' } }
+      it { expect(video.etag).to eq '12345' }
+    end
+  end
+
   describe '#snippet' do
     context 'given fetching a video returns a snippet' do
       let(:attrs) { {snippet: {"title"=>"Fullscreen Creator Platform"}} }

@@ -63,7 +63,7 @@ module Yt
       #   Can be overwritten by subclasses that initialize instance with
       #   a different set of parameters.
       def new_item(data)
-        resource_class.new attributes_for_new_item(data)
+        resource_class.new attributes_for_new_item(data).merge(etag: data['etag'])
       end
 
       # @private
