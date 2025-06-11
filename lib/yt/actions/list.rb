@@ -15,12 +15,15 @@ module Yt
     private
 
       def list
+        owner = self
         @last_index, @page_token = 0, nil
         Enumerator.new(-> {total_results}) do |items|
           while next_item = find_next
             items << next_item
           end
           @where_params = {}
+        end.tap do |enum|
+            enum.define_singleton_method(:etag) { owner.instance_variable_get(:@etag) }
         end
       end
 
