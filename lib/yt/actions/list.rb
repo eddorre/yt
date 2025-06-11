@@ -94,6 +94,7 @@ module Yt
 
       def fetch_page(params = {})
         @last_response = list_request(params).run
+        @etag = @last_response.body['etag']
         token = @last_response.body['nextPageToken']
         items = extract_items @last_response.body
         {items: items, token: token}
