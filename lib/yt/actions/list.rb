@@ -6,7 +6,7 @@ module Yt
   module Actions
     module List
       delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first, :take,
-        :flat_map, :map, :select, :size, :etag, to: :list
+        :flat_map, :map, :select, :size, to: :list
 
       def first!
         first.tap{|item| raise Errors::NoItems, error_message unless item}
