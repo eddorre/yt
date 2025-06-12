@@ -12,6 +12,10 @@ module Yt
         first.tap{|item| raise Errors::NoItems, error_message unless item}
       end
 
+      def etag
+        @etag ||= fetch_etag
+      end
+
     private
 
       def list
@@ -98,6 +102,11 @@ module Yt
         token = @last_response.body['nextPageToken']
         items = extract_items @last_response.body
         {items: items, token: token}
+      end
+
+      def fetch_etag
+        response = list_request(list_params).run
+        response.body['etag']
       end
 
       def list_request(params = {})
