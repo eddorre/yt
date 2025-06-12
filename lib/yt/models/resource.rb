@@ -20,6 +20,12 @@ module Yt
         end
       end
 
+    ### EXISTS? ###
+
+      def exists?
+        !@id.nil?
+      end
+
     ### STATUS ###
 
       has_one :status
