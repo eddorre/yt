@@ -6,7 +6,7 @@ module Yt
   module Models
     class Resource < Base
       # @private
-      attr_reader :auth, :etag
+      attr_reader :auth
 
     ### ID ###
 
@@ -18,6 +18,13 @@ module Yt
         else
           @id
         end
+      end
+
+    ### ETAG ###
+      def etag
+        return nil unless exists?
+
+        @etag ||= fetch_etag
       end
 
     ### EXISTS? ###
@@ -144,6 +151,20 @@ module Yt
         else
           raise Yt::Errors::NoItems
         end
+      end
+
+      def fetch_etag
+        return nil if @auth.nil || @id.nil?
+
+        collection = resource_collection.new(auth: @auth).where(id: @id)
+        resource = collection.first
+        resource.etag if resource
+      end
+
+      def resource_collection
+        name = self.class.to_s.demodulize.pluralize
+        require "yt/collections/#{name.underscore}"
+        "Yt::Collections::#{name}".constantize
       end
 
       # Since YouTube API only returns tags on Videos#list, the memoized
