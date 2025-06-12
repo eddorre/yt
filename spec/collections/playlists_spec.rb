@@ -36,7 +36,6 @@ describe Yt::Collections::Playlists do
     end
 
     it 'returns the etag from the list response' do
-      collection.count
       expect(collection.etag).to eq etag
     end
   end
