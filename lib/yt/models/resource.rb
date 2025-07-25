@@ -156,8 +156,8 @@ module Yt
       def fetch_etag
         return nil if @id.nil?
 
-        collection = resource_collection.new(auth: @auth).where(id: @id)
-        collection.etag
+        collection = resource_collection.new(auth: @auth).where(id: @id)&.first
+        collection&.etag
       end
 
       def resource_collection
