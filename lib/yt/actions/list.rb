@@ -27,7 +27,7 @@ module Yt
           end
           @where_params = {}
         end.tap do |enum|
-            enum.define_singleton_method(:etag) { owner.instance_variable_get(:@etag) }
+          enum.define_singleton_method(:etag) { owner.instance_variable_get(:@etag) }
         end
       end
 
